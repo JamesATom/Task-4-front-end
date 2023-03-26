@@ -31,7 +31,6 @@ export default function HomeTable() {
                 .then((res) => {
                     setRow(res.data);
                 }, networkError => console.log(`Network Error ${networkError}`));
-            console.log('hell world');
     }, [requistedOrNot]);
 
     const handleRowClick = (ids) => {
@@ -44,16 +43,26 @@ export default function HomeTable() {
             .then((res) => {
                 if (res.data == 'success')
                     return res.data;
-            }, networkError => console.log(`Network Error ${networkError}`))
-        setRequistedOrNot(prev => prev == true ? false : true);   
+            }, networkError => console.log(`Network Error ${networkError}`)
+            ).then(() => {
+                setTimeout(() => {
+                    setRequistedOrNot(prev => prev == true ? false : true);
+                }, 1000);
+            })
+        // setRequistedOrNot(prev => prev == true ? false : true);   
     }
     const handleBlock = () => {
         const res = axios.put('https://task-4-back-end-production-9cf4.up.railway.app/users/block', {"block": selected})
             .then((res) => {
                 if (res.data == 'success')
                     return res.data;
-            }, networkError => console.log(`Network Error ${networkError}`));
-        setRequistedOrNot(prev => prev == true ? false : true);   
+            }, networkError => console.log(`Network Error ${networkError}`)
+            ).then(() => {
+                setTimeout(() => {
+                    setRequistedOrNot(prev => prev == true ? false : true);
+                }, 1000);
+            });
+        // setRequistedOrNot(prev => prev == true ? false : true);   
         let tempSelected = JSON.parse(selected);
         let arr = [];
         for (let each of row) {
@@ -71,16 +80,19 @@ export default function HomeTable() {
         });
     }
     const handleDelete = () => {
-        console.log(selected);
         const res = axios.put('https://task-4-back-end-production-9cf4.up.railway.app/users/delete', {"block": selected})
             .then((res) => {
                 if (res.data == 'success')
                     return res.data;
             }, networkError => console.log(`Network Error ${networkError}`)
+            ).then(() => {
+                setTimeout(() => {
+                    setRequistedOrNot(prev => prev == true ? false : true);
+                }, 1000);
+            })
             .catch(err => {
                 console.log(`Personal Error: ${err}`);
-            }));
-        setRequistedOrNot(prev => prev == true ? false : true); 
+            });
         let tempSelected = JSON.parse(selected);
         let arr = [];
         for (let each of row) {
