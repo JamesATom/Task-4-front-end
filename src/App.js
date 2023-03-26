@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from './login page/login';
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Navigate } from 'react-router-dom';
+import SignUpPage from './createAccount/create';
+import HomeTable from './homePage/homeTable';
 
-function App() {
+
+const router = createBrowserRouter(createRoutesFromElements(
+  <>
+      <Route path='/' element={<Login />} />
+      <Route path='/sign-up' exact element={<SignUpPage />}/>
+      {/* <Route path='/home' element={<RequireAuth redirectTo="/"> */}
+        <Route path='/home' element={<HomeTable />} />
+      {/* </RequireAuth>}/> */}
+  </>
+));
+
+// function RequireAuth({ children, redirectTo }) {
+//   let isAuthenticated = window.sessionStorage.getItem("signed");
+//   let blocked = window.sessionStorage.getItem("blocked");
+//   let email = window.sessionStorage.getItem("email");
+//   // let deleted = window.sessionStorage.getItem("deleted");
+//   return (isAuthenticated && blocked != email ? children : <Navigate to={redirectTo} />);
+// }
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
-export default App;
+
